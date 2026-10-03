@@ -388,8 +388,15 @@ hand over to `coa_core::docker`; nothing else needed to change for start, stop, 
   so replaying the SQL files from the base scripts fails, in any order. `coa-release export-baseline --server DIR --out DIR`
   produces the dumps from a prepared server (repack or Docker). The game data stays where the person has it
   (`dataDir` in `docker.json`, mounted read-only). A failure removes the containers, the volume and the staging folder.
-* **Not done yet**: wiring the installer into the screens, downloading the game data, updates, port conflict detection,
-  the firewall and exposure checks, the Wildcard realm profiles, and the client under Wine/Proton.
+* **In the screens** the host is asked once per command (`coa_core::platform::flavor()`: repack on Windows, Docker
+  elsewhere) and the Docker half lives in `src-tauri/src/docker_install.rs`; the repack arm of each install command is the
+  code that was there. `install_environment` tells the install screen the kind of server, the suggested folder
+  (`~/CoaServer`) and why Docker cannot be used, if it cannot. On Docker the screen also asks for the game data folder and
+  the package, and there is no default package address until a signed Linux package is published. Packages are checked with
+  the embedded key; only a debug build (`tauri dev`) accepts another one, named in `COA_DEV_TRUSTED_KEY`, to try the
+  installer on a package signed with a throwaway key.
+* **Not done yet**: downloading the game data, updates, port conflict detection, the firewall and exposure checks, the
+  Wildcard realm profiles, and the client under Wine/Proton.
 
 ### D14. Keeping Windows and Linux apart
 
