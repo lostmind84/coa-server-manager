@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ref: [feat/linux-b3a-installer, feat/linux-b3b-install-screen, feat/linux-b4-parity]
+        ref: [feat/linux-b3b-install-screen, feat/linux-b4-parity]
     steps:
       - uses: actions/checkout@v7
         with:
